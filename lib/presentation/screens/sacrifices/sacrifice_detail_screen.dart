@@ -769,7 +769,8 @@ class _SacrificeDetailScreenState extends State<SacrificeDetailScreen> {
     }
 
     final shareCount = int.parse(_shareCountController.text);
-    final shareAmount = shareCount * (sacrifice.sharePrice ?? 0);
+    // FIX: Explicitly convert to double to avoid num type error
+    final shareAmount = (shareCount * (sacrifice.sharePrice ?? 0)).toDouble();
 
     // Check if person already participates
     final participationState = context.read<ParticipationCubit>().state;
@@ -792,7 +793,7 @@ class _SacrificeDetailScreenState extends State<SacrificeDetailScreen> {
       personId: _selectedPerson!.id!,
       sacrificeId: sacrifice.id!,
       shareCount: shareCount,
-      shareAmount: shareAmount,
+      shareAmount: shareAmount, // Now correctly typed as double
       notes: _notesController.text.isEmpty ? null : _notesController.text,
     );
 

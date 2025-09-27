@@ -1,4 +1,4 @@
-name: kurban_management
+name: kurban_frontend
 description: A Flutter app for managing Kurban sacrifices and participations
 version: 1.0.0+1
 
@@ -35,8 +35,15 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
+  # Linting
   flutter_lints: ^3.0.0
-
+  
+  # Testing
+  mocktail: ^1.0.1           # For mocking in tests
+  bloc_test: ^9.1.5          # For testing BLoC/Cubit
+  build_runner: ^2.4.7       # For code generation in tests
+  
 flutter:
   uses-material-design: true
   assets:
