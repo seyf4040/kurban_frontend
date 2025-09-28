@@ -93,6 +93,8 @@ class Participation extends Equatable {
     id, shareCount, shareAmount, paid, paymentDate, notes,
     createdAt, personId, personName, sacrificeId, sacrificeNumber
   ];
+
+  bool get isPaid => paid;
 }
 
 class ParticipationSummary extends Equatable {
@@ -130,6 +132,7 @@ class ParticipationCreateRequest extends Equatable {
   final int shareCount;
   final double? shareAmount;
   final String? notes;
+  final bool? paid;
 
   const ParticipationCreateRequest({
     required this.personId,
@@ -137,6 +140,7 @@ class ParticipationCreateRequest extends Equatable {
     this.shareCount = 1,
     this.shareAmount,
     this.notes,
+    this.paid,
   });
 
   Map<String, dynamic> toJson() {
@@ -146,9 +150,10 @@ class ParticipationCreateRequest extends Equatable {
       'shareCount': shareCount,
       'shareAmount': shareAmount,
       'notes': notes,
+      'paid': paid,
     };
   }
 
   @override
-  List<Object?> get props => [personId, sacrificeId, shareCount, shareAmount, notes];
+  List<Object?> get props => [personId, sacrificeId, shareCount, shareAmount, notes, paid];
 }

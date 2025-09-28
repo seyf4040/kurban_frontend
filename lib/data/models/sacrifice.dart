@@ -107,6 +107,10 @@ class Sacrifice extends Equatable {
     id, sacrificeNumber, animalType, totalCost, status, sacrificeDate,
     createdAt, totalParticipants, totalShares, sharePrice, totalPaidAmount, participations
   ];
+
+  double get costPerCurrentShare => (totalCost ?? 0) / (totalParticipants > 0 ? totalParticipants : 1);
+  double get costPerShareIfCompleted => (totalCost ?? 0) / 7;
+
 }
 
 class SacrificeCreateRequest extends Equatable {

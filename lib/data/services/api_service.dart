@@ -47,7 +47,7 @@ class ApiService {
     return Person.fromJson(response.data);
   }
 
-  Future<Person> updatePerson(int id, PersonCreateRequest request) async {
+  Future<Person> updatePerson(int id, PersonUpdateRequest request) async {
     final response = await _dio.put(
       ApiEndpoints.personById(id),
       data: request.toJson(),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubits/person/person_cubit.dart';
 import '../cubits/sacrifice/sacrifice_cubit.dart';
-import '../cubits/config/config_cubit.dart';
 import 'home/home_screen.dart';
 import 'persons/persons_screen.dart';
 import 'sacrifices/sacrifices_screen.dart';
@@ -30,8 +29,9 @@ class _MainNavigationState extends State<MainNavigation> {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => getIt<PersonCubit>()..loadPersons()),
-        BlocProvider(create: (context) => getIt<SacrificeCubit>()..loadSacrifices()),
+        // ✅ FIXED: Use singleton instances instead of creating new ones
+        BlocProvider.value(value: getIt<PersonCubit>()..loadPersons()),
+        BlocProvider.value(value: getIt<SacrificeCubit>()..loadSacrifices()),
       ],
       child: Scaffold(
         body: IndexedStack(

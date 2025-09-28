@@ -205,24 +205,36 @@ class _PersonsScreenState extends State<PersonsScreen> {
   Future<void> _navigateToAddPerson() async {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const AddPersonScreen(),
+        builder: (context) => BlocProvider.value(
+          value: context.read<PersonCubit>(), // ✅ Use existing singleton instance
+          child: const AddPersonScreen(),
+        ),
       ),
     );
     
     if (result == true) {
-      context.read<PersonCubit>().loadPersons();
+      // No need to reload - singleton persists state
+      if (mounted) {
+        context.read<PersonCubit>().loadPersons();
+      }
     }
   }
 
   Future<void> _navigateToEditPerson(Person person) async {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EditPersonScreen(person: person),
+        builder: (context) => BlocProvider.value(
+          value: context.read<PersonCubit>(), // ✅ Use existing singleton instance
+          child: EditPersonScreen(person: person),
+        ),
       ),
     );
     
     if (result == true) {
-      context.read<PersonCubit>().loadPersons();
+      // No need to reload - singleton persists state
+      if (mounted) {
+        context.read<PersonCubit>().loadPersons();
+      }
     }
   }
 

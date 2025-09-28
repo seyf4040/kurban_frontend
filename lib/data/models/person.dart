@@ -116,3 +116,32 @@ class PersonCreateRequest extends Equatable {
   @override
   List<Object?> get props => [firstname, lastname, phone, email, contactIntermediaryId];
 }
+
+class PersonUpdateRequest extends Equatable {
+  final String firstname;
+  final String lastname;
+  final String? phone;
+  final String? email;
+  final int? contactIntermediaryId;
+
+  const PersonUpdateRequest({
+    required this.firstname,
+    required this.lastname,
+    this.phone,
+    this.email,
+    this.contactIntermediaryId,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'firstname': firstname,
+      'lastname': lastname,
+      'phone': phone,
+      'email': email,
+      'contactIntermediaryId': contactIntermediaryId,
+    };
+  }
+
+  @override
+  List<Object?> get props => [firstname, lastname, phone, email, contactIntermediaryId];
+}

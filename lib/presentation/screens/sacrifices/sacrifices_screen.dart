@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kurban_frontend/dependencies.dart';
+import 'package:kurban_frontend/presentation/cubits/config/config_cubit.dart';
+import 'package:kurban_frontend/presentation/cubits/participation/participation_cubit.dart';
+import 'package:kurban_frontend/presentation/cubits/person/person_cubit.dart';
 import '../../cubits/sacrifice/sacrifice_cubit.dart';
 import '../../../data/models/sacrifice.dart';
 import '../../../core/constants/app_colors.dart';
@@ -118,7 +122,13 @@ class SacrificesScreen extends StatelessWidget {
   Future<void> _navigateToAdd(BuildContext context) async {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => const AddSacrificeScreen(),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: context.read<SacrificeCubit>()),
+            BlocProvider.value(value: getIt<ConfigCubit>()),
+          ],
+          child: const AddSacrificeScreen(),
+        ),
       ),
     );
     
@@ -130,7 +140,13 @@ class SacrificesScreen extends StatelessWidget {
   Future<void> _navigateToEdit(BuildContext context, Sacrifice sacrifice) async {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => EditSacrificeScreen(sacrifice: sacrifice),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: context.read<SacrificeCubit>()),
+            BlocProvider.value(value: getIt<ConfigCubit>()),
+          ],
+          child: EditSacrificeScreen(sacrifice: sacrifice),
+        ),
       ),
     );
     
@@ -142,7 +158,19 @@ class SacrificesScreen extends StatelessWidget {
   Future<void> _navigateToDetail(BuildContext context, Sacrifice sacrifice) async {
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => SacrificeDetailScreen(sacrificeId: sacrifice.id!),
+        builder: (context) => MultiBlocProvider(
+          providers: [
+            // ✅ Use existing singleton instances
+            BlocProvider.value(value: context.read<SacrificeCubit>()),
+            BlocProvider.value(value: context.read<PersonCubit>()),
+            // ✅ Only ParticipationCubit is new since it's sacrifice-specific
+            BlocProvider(
+              create: (context) => getIt<ParticipationCubit>()
+                ..loadParticipationsBySacrifice(sacrifice.id!),
+            ),
+          ],
+          child: SacrificeDetailScreen(sacrificeId: sacrifice.id!),
+        ),
       ),
     );
     

@@ -30,7 +30,7 @@ class PersonCubit extends Cubit<PersonState> {
     }
   }
 
-  Future<void> updatePerson(int id, PersonCreateRequest request) async {
+  Future<void> updatePerson(int id, PersonUpdateRequest request) async {
     try {
       emit(PersonLoading());
       await _repository.updatePerson(id, request);

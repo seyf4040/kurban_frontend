@@ -18,7 +18,7 @@ class PersonRepository {
     return await _apiService.createPerson(request);
   }
 
-  Future<Person> updatePerson(int id, PersonCreateRequest request) async {
+  Future<Person> updatePerson(int id, PersonUpdateRequest request) async {
     return await _apiService.updatePerson(id, request);
   }
 

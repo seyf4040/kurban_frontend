@@ -29,16 +29,20 @@ Future<void> setupDependencies() async {
     () => ConfigRepository(getIt<ApiService>()),
   );
 
-  // Cubits
-  getIt.registerFactory<PersonCubit>(
+  // ✅ FIXED: Change to LazySingleton for state persistence
+  // This ensures the same cubit instance is used throughout the app
+  getIt.registerLazySingleton<PersonCubit>(
     () => PersonCubit(getIt<PersonRepository>()),
   );
-  getIt.registerFactory<SacrificeCubit>(
+  getIt.registerLazySingleton<SacrificeCubit>(
     () => SacrificeCubit(getIt<SacrificeRepository>()),
   );
+  
+  // ParticipationCubit can remain factory as it's context-specific
   getIt.registerFactory<ParticipationCubit>(
     () => ParticipationCubit(getIt<ParticipationRepository>()),
   );
+  
   getIt.registerLazySingleton<ConfigCubit>(
     () => ConfigCubit(getIt<ConfigRepository>()),
   );
