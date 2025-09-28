@@ -122,6 +122,7 @@ class _PersonsScreenState extends State<PersonsScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "persons_fab",
         onPressed: () => _navigateToAddPerson(),
         child: const Icon(Icons.person_add),
       ),

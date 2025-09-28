@@ -113,6 +113,7 @@ class SacrificesScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "sacrifice_fab",
         onPressed: () => _navigateToAdd(context),
         child: const Icon(Icons.add),
       ),
