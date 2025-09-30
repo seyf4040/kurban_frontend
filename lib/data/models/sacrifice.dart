@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:kurban_frontend/core/utils/animal_utils.dart';
 import 'participation.dart';
 
 class Sacrifice extends Equatable {
@@ -10,7 +11,7 @@ class Sacrifice extends Equatable {
   final DateTime? sacrificeDate;
   final DateTime? createdAt;
   final int totalParticipants;
-  final int totalShares;
+  final int totalShares; // Total shares taken by all participants
   final double? sharePrice;
   final double? totalPaidAmount;
   final List<ParticipationSummary> participations;
@@ -30,8 +31,9 @@ class Sacrifice extends Equatable {
     this.participations = const [],
   });
 
-  int get availableShares => 7 - totalShares;
-  
+  int get maxShares => AnimalUtils.getMaxSharesForAnimal(animalType); // e.g., Cow has 7 shares
+  int get availableShares => maxShares - totalShares;  // Shares left to be taken
+
   double get pendingAmount => (totalCost ?? 0) - (totalPaidAmount ?? 0);
   
   bool get isCompleted => status == 'completed';
@@ -109,7 +111,7 @@ class Sacrifice extends Equatable {
   ];
 
   double get costPerCurrentShare => (totalCost ?? 0) / (totalParticipants > 0 ? totalParticipants : 1);
-  double get costPerShareIfCompleted => (totalCost ?? 0) / 7;
+  double get costPerShareIfCompleted => (totalCost ?? 0) / maxShares;
 
 }
 

@@ -14,6 +14,7 @@ class AppConfig extends Equatable {
       'cow': 1000.0,
       'goat': 500.0,
       'sheep': 600.0,
+      'chicken': 50.0,
     },
     this.primaryColor = const Color(0xFF1B4332),
     this.accentColor = const Color(0xFFFFFDD0),
@@ -61,6 +62,14 @@ class AppConfig extends Equatable {
       defaultSacrificeDaysFromNow: defaultSacrificeDaysFromNow ?? this.defaultSacrificeDaysFromNow,
     );
   }
+
+   Map<String, double> get getAnimalTypeByName => {
+        'cow': 500.0,
+        'goat': 150.0,
+        'sheep': 200.0,
+        'camel': 1000.0,
+        'chicken': 50.0,
+      };
 
   @override
   List<Object?> get props => [

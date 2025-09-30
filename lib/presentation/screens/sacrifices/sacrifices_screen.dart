@@ -125,7 +125,7 @@ class SacrificesScreen extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => MultiBlocProvider(
           providers: [
-            BlocProvider.value(value: context.read<SacrificeCubit>()),
+            BlocProvider.value(value: getIt<SacrificeCubit>()),
             BlocProvider.value(value: getIt<ConfigCubit>()),
           ],
           child: const AddSacrificeScreen(),
@@ -143,7 +143,7 @@ class SacrificesScreen extends StatelessWidget {
       MaterialPageRoute(
         builder: (context) => MultiBlocProvider(
           providers: [
-            BlocProvider.value(value: context.read<SacrificeCubit>()),
+            BlocProvider.value(value: getIt<SacrificeCubit>()),
             BlocProvider.value(value: getIt<ConfigCubit>()),
           ],
           child: EditSacrificeScreen(sacrifice: sacrifice),
@@ -162,8 +162,8 @@ class SacrificesScreen extends StatelessWidget {
         builder: (context) => MultiBlocProvider(
           providers: [
             // ✅ Use existing singleton instances
-            BlocProvider.value(value: context.read<SacrificeCubit>()),
-            BlocProvider.value(value: context.read<PersonCubit>()),
+            BlocProvider.value(value: getIt<SacrificeCubit>()),
+            BlocProvider.value(value: getIt<PersonCubit>()),
             // ✅ Only ParticipationCubit is new since it's sacrifice-specific
             BlocProvider(
               create: (context) => getIt<ParticipationCubit>()

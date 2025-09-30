@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:kurban_frontend/core/utils/print_utils.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import '../models/person.dart';
 import '../models/sacrifice.dart';
@@ -31,7 +32,10 @@ class ApiService {
   // Persons API
   Future<List<Person>> getPersons() async {
     final response = await _dio.get(ApiEndpoints.persons);
-    return (response.data as List).map((json) => Person.fromJson(json)).toList();
+    // PrintUtils.printJson(response.data, label: 'Response: ');
+    List<Person> ret = (response.data as List).map((json) => Person.fromJson(json)).toList();
+    // PrintUtils.printJson(ret, label: 'List of Persons:');
+    return ret;
   }
 
   Future<Person> getPersonById(int id) async {

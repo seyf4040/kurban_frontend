@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kurban_frontend/dependencies.dart';
 import '../../cubits/person/person_cubit.dart';
 import '../../../data/models/person.dart';
 import '../../../core/constants/app_colors.dart';
@@ -207,7 +208,7 @@ class _PersonsScreenState extends State<PersonsScreen> {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => BlocProvider.value(
-          value: context.read<PersonCubit>(), // ✅ Use existing singleton instance
+          value: getIt<PersonCubit>(), // ✅ Use existing singleton instance
           child: const AddPersonScreen(),
         ),
       ),
@@ -225,7 +226,7 @@ class _PersonsScreenState extends State<PersonsScreen> {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => BlocProvider.value(
-          value: context.read<PersonCubit>(), // ✅ Use existing singleton instance
+          value: getIt<PersonCubit>(), // ✅ Use existing singleton instance
           child: EditPersonScreen(person: person),
         ),
       ),
